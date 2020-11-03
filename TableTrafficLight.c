@@ -85,16 +85,16 @@ typedef const struct State STyp;
 //Stay solid for 2 seconds
 STyp FSM[12]={
  {{0x21,0x02}, 200,{goS,waitS,goS,waitS, stopWaitS, stopWaitS, stopWaitS, stopWaitS}},
- {{0x22, 0x02}, 50,{goW,goW,goW,goW, stopSW, stopSW, stopSW, stopSW}},
+ {{0x22, 0x02}, 200,{goW,goW,goW,goW, stopSW, stopSW, stopSW, stopSW}},
  {{0x0C, 0x02},200,{goW,goW,waitW,waitW, stopWaitW, stopWaitW, stopWaitW, stopWaitW}},
- {{0x14, 0x02}, 50,{goS,goS,goS,goS, stopSW, stopSW, stopSW, stopSW}},
- {{0x22, 0x02}, 50,{stopSW, stopSW, stopSW, stopSW, stopSW, stopSW, stopSW, stopSW}},
- {{0x14, 0x02}, 50,{stopSW, stopSW, stopSW, stopSW, stopSW, stopSW, stopSW, stopSW}},
+ {{0x14, 0x02}, 200,{goS,goS,goS,goS, stopSW, stopSW, stopSW, stopSW}},
+ {{0x22, 0x02}, 200,{stopSW, stopSW, stopSW, stopSW, stopSW, stopSW, stopSW, stopSW}},
+ {{0x14, 0x02}, 200,{stopSW, stopSW, stopSW, stopSW, stopSW, stopSW, stopSW, stopSW}},
  {{0x24, 0x08},200,{stopBlink1SW,stopBlink1SW,stopBlink1SW,stopBlink1SW, stopBlink1SW, stopBlink1SW, stopBlink1SW, stopBlink1SW}},
- {{0x24,0x02},50,{stopBlink2SW,stopBlink2SW,stopBlink2SW,stopBlink2SW, stopBlink2SW, stopBlink2SW, stopBlink2SW, stopBlink2SW}},
- {{0x24,0x00},50,{stopBlink3SW,stopBlink3SW,stopBlink3SW,stopBlink3SW, stopBlink3SW, stopBlink3SW, stopBlink3SW, stopBlink3SW}},
- {{0x24,0x02},50,{stopBlink4SW,stopBlink4SW,stopBlink4SW,stopBlink4SW, stopBlink4SW, stopBlink4SW, stopBlink4SW, stopBlink4SW}},
- {{0x24,0x00},50,{stopSolidSW,stopSolidSW,stopSolidSW,stopSolidSW, stopSolidSW, stopSolidSW, stopSolidSW, stopSolidSW}},
+ {{0x24,0x02},100,{stopBlink2SW,stopBlink2SW,stopBlink2SW,stopBlink2SW, stopBlink2SW, stopBlink2SW, stopBlink2SW, stopBlink2SW}},
+ {{0x24,0x00},100,{stopBlink3SW,stopBlink3SW,stopBlink3SW,stopBlink3SW, stopBlink3SW, stopBlink3SW, stopBlink3SW, stopBlink3SW}},
+ {{0x24,0x02},100,{stopBlink4SW,stopBlink4SW,stopBlink4SW,stopBlink4SW, stopBlink4SW, stopBlink4SW, stopBlink4SW, stopBlink4SW}},
+ {{0x24,0x00},100,{stopSolidSW,stopSolidSW,stopSolidSW,stopSolidSW, stopSolidSW, stopSolidSW, stopSolidSW, stopSolidSW}},
  {{0x24,0x02},200,{goS,goW,goS,goW, goW, goW, goS, goS}}};
 
 // Local function prototypes 
@@ -143,9 +143,9 @@ void Init_GPIO_PortsEBF(void) {
 	
 	//Port F initialization
 	GPIO_PORTF_DIR_R |= 0x0A;         // make PF3,PF1 out
-  GPIO_PORTF_AFSEL_R &= ~0x0A;      // disable alt funct on PF5-0
-  GPIO_PORTF_DEN_R |= 0x0A;         // enable digital I/O on PF5-0
+  GPIO_PORTF_AFSEL_R &= ~0x0A;      // disable alt funct on PF3, PF1
+  GPIO_PORTF_DEN_R |= 0x0A;         // enable digital I/O on PF3, PF1
                                     // configure PF3, PF1 as GPIO
-  GPIO_PORTF_PCTL_R = (GPIO_PORTB_PCTL_R&0xFFFF0F0F)+0x00000000;
+  GPIO_PORTF_PCTL_R = (GPIO_PORTF_PCTL_R&0xFFFF0F0F)+0x00000000;
   GPIO_PORTF_AMSEL_R &= ~0x0A;      // disable analog functionality on PF3, PF1
 	}
